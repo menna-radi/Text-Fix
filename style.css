@@ -1028,6 +1028,7 @@ body.rtl .output-actions {
     flex: 0 0 auto;
     align-items: center;
     gap: 8px;
+    flex-direction: row-reverse;
   }
 
   .site-lang-wrapper select {
@@ -1461,6 +1462,10 @@ body.rtl .text-box-label {
   /* Force the controls to stay on the physical right even in RTL */
   body.rtl .top-bar {
     flex-direction: row-reverse;
+  }
+
+  body.rtl .top-controls {
+    flex-direction: row;
   }
 
   body.rtl .site-lang-wrapper select {
