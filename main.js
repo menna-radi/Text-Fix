@@ -172,7 +172,7 @@ function updateLanguageUI(lang) {
   resetBtn.title = tr.titles[2];
 
   panelTitle.textContent = tr.panel;
-  videoTitle.textContent = tr.video;
+  if (videoTitle) videoTitle.textContent = tr.video;
   inputLabel.textContent = tr.input;
   outputLabel.textContent = tr.output;
 
