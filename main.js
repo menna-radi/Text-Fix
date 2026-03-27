@@ -13,6 +13,8 @@ const swapBtn = document.getElementById('swapBtn');
 // ---------- Reset Button ----------
 const resetBtn = document.createElement('button');
 resetBtn.id = 'resetBtn';
+resetBtn.className = 'btn-icon';
+resetBtn.title = 'Reset Fields';
 resetBtn.innerText = '🗑️';
 swapBtn.parentNode.appendChild(resetBtn);
 

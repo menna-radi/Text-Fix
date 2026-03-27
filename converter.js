@@ -129,14 +129,22 @@ function convertBetweenLayouts(text, fromLang, toLang){
       continue;
     }
 
-    let key = Object.keys(fromLayout).find(k => fromLayout[k] === char);
+    let isUpper = char.length === 1 && char !== char.toLowerCase();
+    let lowerChar = char.toLowerCase();
+
+    let key = Object.keys(fromLayout).find(k => fromLayout[k] === lowerChar);
 
     if(!key){
       result += char;
       continue;
     }
 
-    let converted = toLayout[key] || char;
+    let converted = toLayout[key] || lowerChar;
+    
+    if(isUpper && toLang !== 'ar' && typeof converted.toUpperCase === 'function'){
+      converted = converted.toUpperCase();
+    }
+    
     result += converted;
   }
 
@@ -144,18 +152,3 @@ function convertBetweenLayouts(text, fromLang, toLang){
 
   return result;
 }
-
-const textarea = document.querySelector('#inputText');
-  const output = document.querySelector('#output');
-  const fromSelect = document.querySelector('#fromLang');
-  const toSelect = document.querySelector('#toLang');
-
-  function updateOutput(){
-    const original = textarea.value;
-    const converted = convertBetweenLayouts(original, fromSelect.value, toSelect.value);
-    output.textContent = converted;
-  }
-
-  textarea.addEventListener('input', updateOutput);
-  fromSelect.addEventListener('change', updateOutput);
-  toSelect.addEventListener('change', updateOutput);
