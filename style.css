@@ -895,20 +895,32 @@ body.rtl .output-actions {
   }
 
   .top-bar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
     padding: 12px 14px;
     border-radius: var(--radius-md);
   }
 
   .top-bar-left {
-    justify-content: space-between;
+    flex: 1;
+    min-width: 0;
+    gap: 10px;
   }
 
   .top-controls {
-    justify-content: space-between;
-    width: 100%;
+    flex-shrink: 0;
+    gap: 8px;
+  }
+
+  .site-lang-wrapper {
+    flex: 0 0 auto;
+  }
+
+  .site-lang-wrapper select {
+    max-width: 140px;
+    font-size: 0.82rem;
+    padding: 8px 30px 8px 10px;
   }
 
   .controls {
@@ -919,6 +931,7 @@ body.rtl .output-actions {
 
   .lang-select-group {
     min-width: unset;
+    max-width: 100%;
   }
 
   .lang-select-group select {
@@ -946,7 +959,7 @@ body.rtl .output-actions {
   }
 
   h1.site-title {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
   }
 
   .panel-header {
@@ -1022,16 +1035,16 @@ body.rtl .output-actions {
   }
 
   .top-bar {
-    padding: 10px 12px;
-    gap: 10px;
+    padding: 10px 10px;
+    gap: 8px;
   }
 
   .site-logo {
-    height: 32px;
+    height: 30px;
   }
 
   h1.site-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .icon-btn {
@@ -1045,7 +1058,13 @@ body.rtl .output-actions {
   }
 
   .top-controls {
-    gap: 8px;
+    gap: 6px;
+  }
+
+  .site-lang-wrapper select {
+    max-width: 120px;
+    font-size: 0.78rem;
+    padding: 7px 26px 7px 8px;
   }
 
   select {
@@ -1121,15 +1140,40 @@ body.rtl .output-actions {
   }
 
   .top-bar {
-    padding: 8px 10px;
+    padding: 8px 8px;
+    gap: 6px;
+  }
+
+  .top-bar-left {
+    gap: 6px;
   }
 
   .site-logo {
-    height: 28px;
+    height: 26px;
   }
 
   h1.site-title {
-    font-size: 1rem;
+    font-size: 0.92rem;
+  }
+
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .site-lang-wrapper select {
+    max-width: 100px;
+    font-size: 0.72rem;
+    padding: 6px 22px 6px 6px;
+  }
+
+  .site-lang-wrapper .globe-icon {
+    display: none;
   }
 
   .converter-panel,
