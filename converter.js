@@ -102,15 +102,13 @@ function postprocessArabic(text){
     .replace(/h/g, 'أ');
 }
 
-/// ---------- Special Arabic character mapping ----------
+// Special Arabic character mapping
 const specialMapArToEn = {
   'ج': '[',  
   'ذ': '`',  
   'أ': 'h',  
   'لا': 'b' 
 };
-
-// ---------- convertBetweenLayouts ----------
 function convertBetweenLayouts(text, fromLang, toLang){
   if(fromLang === 'ar') text = preprocessArabic(text);
 
@@ -122,14 +120,12 @@ function convertBetweenLayouts(text, fromLang, toLang){
   for(let i = 0; i < text.length; i++){
     let char = text[i];
 
-    // 🔹 special case "لا" أو الحروف العربية الخاصة
+    // 🔹 Special Arabic chars
     if(fromLang === 'ar' && specialMapArToEn[char]){
-      let key = specialMapArToEn[char];
-      let converted = toLayout[key] || char;
+      let converted = specialMapArToEn[char]; 
+      // لو عايزين نحول كمان حسب toLayout
+      if(toLayout[converted]) converted = toLayout[converted];
       result += converted;
-
-      // لو "لا" تجاوز حرفين
-      if(char === 'b') i++;
       continue;
     }
 
@@ -141,7 +137,6 @@ function convertBetweenLayouts(text, fromLang, toLang){
     }
 
     let converted = toLayout[key] || char;
-
     result += converted;
   }
 
@@ -149,11 +144,18 @@ function convertBetweenLayouts(text, fromLang, toLang){
 
   return result;
 }
-  const textarea = document.querySelector('#myTextarea');
 
-  textarea.addEventListener('input', (e) => {
-    // خليه يشتغل حرف حرف أو كامل النص
-    const original = e.target.value;
-    const converted = convertBetweenLayouts(original, 'ar', 'en'); 
-    e.target.value = converted;
-});
+const textarea = document.querySelector('#myTextarea');
+  const output = document.querySelector('#outputText');
+  const fromSelect = document.querySelector('#fromLang');
+  const toSelect = document.querySelector('#toLang');
+
+  function updateOutput(){
+    const original = textarea.value;
+    const converted = convertBetweenLayouts(original, fromSelect.value, toSelect.value);
+    output.textContent = converted;
+  }
+
+  textarea.addEventListener('input', updateOutput);
+  fromSelect.addEventListener('change', updateOutput);
+  toSelect.addEventListener('change', updateOutput);
