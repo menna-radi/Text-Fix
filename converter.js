@@ -145,8 +145,8 @@ function convertBetweenLayouts(text, fromLang, toLang){
   return result;
 }
 
-const textarea = document.querySelector('#myTextarea');
-  const output = document.querySelector('#outputText');
+const textarea = document.querySelector('#inputText');
+  const output = document.querySelector('#output');
   const fromSelect = document.querySelector('#fromLang');
   const toSelect = document.querySelector('#toLang');
 
