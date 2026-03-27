@@ -190,15 +190,40 @@ updateCharCount();
 // ---------- Video Auto-Unmute on First Interaction ----------
 const tutorialVideo = document.getElementById('tutorialVideo');
 if (tutorialVideo) {
-  const events = ['click', 'touchstart', 'pointerdown', 'mousedown', 'keydown'];
+  // Try to start muted playback immediately (works on most browsers)
+  tutorialVideo.play().catch(() => {});
+
+  let hasUnmuted = false;
+  const events = ['click', 'touchstart', 'touchend', 'pointerdown', 'mousedown', 'keydown'];
+
   const unmuteVideo = () => {
+    if (hasUnmuted) return;
+    hasUnmuted = true;
+
     tutorialVideo.muted = false;
-    tutorialVideo.play().catch(() => {});
-    events.forEach(e => document.removeEventListener(e, unmuteVideo));
+    // On mobile, play() must be called directly inside a user gesture handler
+    const playPromise = tutorialVideo.play();
+    if (playPromise) {
+      playPromise.catch(() => {
+        // If unmuted play fails, re-mute and keep playing silently
+        tutorialVideo.muted = true;
+        tutorialVideo.play().catch(() => {});
+      });
+    }
+
+    // Clean up all listeners
+    events.forEach(e => document.removeEventListener(e, unmuteVideo, { capture: true }));
+    tutorialVideo.removeEventListener('click', unmuteVideo);
+    tutorialVideo.removeEventListener('touchend', unmuteVideo);
     inputText.removeEventListener('focus', unmuteVideo);
     inputText.removeEventListener('input', unmuteVideo);
   };
-  events.forEach(e => document.addEventListener(e, unmuteVideo));
+
+  // Listen on document level (desktop)
+  events.forEach(e => document.addEventListener(e, unmuteVideo, { capture: true, once: false }));
+  // Also listen directly on the video (better for mobile Safari)
+  tutorialVideo.addEventListener('click', unmuteVideo);
+  tutorialVideo.addEventListener('touchend', unmuteVideo);
   inputText.addEventListener('focus', unmuteVideo);
   inputText.addEventListener('input', unmuteVideo);
 }
