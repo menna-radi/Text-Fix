@@ -186,3 +186,17 @@ function updateLanguageUI(lang) {
 updateLanguageUI(siteLangSelect.value);
 updateOutput();
 updateCharCount();
+
+// ---------- Video Auto-Unmute on First Interaction ----------
+const tutorialVideo = document.getElementById('tutorialVideo');
+if (tutorialVideo) {
+  const unmuteVideo = () => {
+    tutorialVideo.muted = false;
+    document.removeEventListener('click', unmuteVideo);
+    document.removeEventListener('touchstart', unmuteVideo);
+    document.removeEventListener('keydown', unmuteVideo);
+  };
+  document.addEventListener('click', unmuteVideo);
+  document.addEventListener('touchstart', unmuteVideo);
+  document.addEventListener('keydown', unmuteVideo);
+}
