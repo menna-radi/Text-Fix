@@ -74,19 +74,28 @@ function updateOutput() {
 // ---------- Translation ----------
 function updateLanguageUI(lang) {
   const t = {
-    en: { from: 'From:', to: 'To:', p: 'Type here...' },
-    ar: { from: 'من:', to: 'إلى:', p: 'اكتب هنا...' },
-    fr: { from: 'De:', to: 'Vers:', p: 'Tapez ici...' },
-    de: { from: 'Von:', to: 'Nach:', p: 'Hier tippen...' },
-    es: { from: 'De:', to: 'A:', p: 'Escribe aquí...' },
-    it: { from: 'Da:', to: 'A:', p: 'Scrivi qui...' },
-    ru: { from: 'С:', to: 'На:', p: 'Введите текст...' }
+    en: { from: 'From:', to: 'To:', p: 'Type here...', langs: ['English', 'Arabic', 'French', 'German', 'Spanish', 'Italian', 'Russian'], titles: ['Swap Languages', 'Copy Text', 'Reset Fields'] },
+    ar: { from: 'من:', to: 'إلى:', p: 'اكتب هنا...', langs: ['الإنجليزية', 'العربية', 'الفرنسية', 'الألمانية', 'الإسبانية', 'الإيطالية', 'الروسية'], titles: ['تبديل اللغات', 'نسخ النص', 'تفريغ الحقول'] },
+    fr: { from: 'De:', to: 'Vers:', p: 'Tapez ici...', langs: ['Anglais', 'Arabe', 'Français', 'Allemand', 'Espagnol', 'Italien', 'Russe'], titles: ['Échanger les langues', 'Copier le texte', 'Réinitialiser'] },
+    de: { from: 'Von:', to: 'Nach:', p: 'Hier tippen...', langs: ['Englisch', 'Arabisch', 'Französisch', 'Deutsch', 'Spanisch', 'Italienisch', 'Russisch'], titles: ['Sprachen tauschen', 'Text kopieren', 'Zurücksetzen'] },
+    es: { from: 'De:', to: 'A:', p: 'Escribe aquí...', langs: ['Inglés', 'Árabe', 'Francés', 'Alemán', 'Español', 'Italiano', 'Ruso'], titles: ['Intercambiar idiomas', 'Copiar texto', 'Restablecer'] },
+    it: { from: 'Da:', to: 'A:', p: 'Scrivi qui...', langs: ['Inglese', 'Arabo', 'Francese', 'Tedesco', 'Spagnolo', 'Italiano', 'Russo'], titles: ['Scambia lingue', 'Copia testo', 'Ripristina'] },
+    ru: { from: 'Из:', to: 'В:', p: 'Введите текст...', langs: ['Английский', 'Арабский', 'Французский', 'Немецкий', 'Испанский', 'Итальянский', 'Русский'], titles: ['Поменять языки', 'Копировать текст', 'Очистить'] }
   };
 
   const tr = t[lang] || t.en;
   fromLabel.innerText = tr.from;
   toLabel.innerText = tr.to;
   inputText.placeholder = tr.p;
+
+  Array.from(fromLangSelect.options).forEach((opt, i) => opt.text = tr.langs[i]);
+  Array.from(toLangSelect.options).forEach((opt, i) => opt.text = tr.langs[i]);
+
+  swapBtn.title = tr.titles[0];
+  copyBtn.title = tr.titles[1];
+  if(typeof resetBtn !== "undefined" && resetBtn) {
+     resetBtn.title = tr.titles[2];
+  }
 }
 
 // ---------- Init ----------
