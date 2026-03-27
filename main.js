@@ -74,13 +74,13 @@ function updateOutput() {
 // ---------- Translation ----------
 function updateLanguageUI(lang) {
   const t = {
-    en: { from: 'From:', to: 'To:', p: 'Type here...', langs: ['English', 'Arabic', 'French', 'German', 'Spanish', 'Italian', 'Russian'], titles: ['Swap Languages', 'Copy Text', 'Reset Fields'] },
-    ar: { from: 'من:', to: 'إلى:', p: 'اكتب هنا...', langs: ['الإنجليزية', 'العربية', 'الفرنسية', 'الألمانية', 'الإسبانية', 'الإيطالية', 'الروسية'], titles: ['تبديل اللغات', 'نسخ النص', 'تفريغ الحقول'] },
-    fr: { from: 'De:', to: 'Vers:', p: 'Tapez ici...', langs: ['Anglais', 'Arabe', 'Français', 'Allemand', 'Espagnol', 'Italien', 'Russe'], titles: ['Échanger les langues', 'Copier le texte', 'Réinitialiser'] },
-    de: { from: 'Von:', to: 'Nach:', p: 'Hier tippen...', langs: ['Englisch', 'Arabisch', 'Französisch', 'Deutsch', 'Spanisch', 'Italienisch', 'Russisch'], titles: ['Sprachen tauschen', 'Text kopieren', 'Zurücksetzen'] },
-    es: { from: 'De:', to: 'A:', p: 'Escribe aquí...', langs: ['Inglés', 'Árabe', 'Francés', 'Alemán', 'Español', 'Italiano', 'Ruso'], titles: ['Intercambiar idiomas', 'Copiar texto', 'Restablecer'] },
-    it: { from: 'Da:', to: 'A:', p: 'Scrivi qui...', langs: ['Inglese', 'Arabo', 'Francese', 'Tedesco', 'Spagnolo', 'Italiano', 'Russo'], titles: ['Scambia lingue', 'Copia testo', 'Ripristina'] },
-    ru: { from: 'Из:', to: 'В:', p: 'Введите текст...', langs: ['Английский', 'Арабский', 'Французский', 'Немецкий', 'Испанский', 'Итальянский', 'Русский'], titles: ['Поменять языки', 'Копировать текст', 'Очистить'] }
+    en: { from: 'From:', to: 'To:', p: 'Type here...', langs: ['EN English', 'AR Arabic', 'FR French', 'DE German', 'ES Spanish', 'IT Italian', 'RU Russian'], titles: ['Swap Languages', 'Copy Text', 'Reset Fields'] },
+    ar: { from: 'من:', to: 'إلى:', p: 'اكتب هنا...', langs: ['EN الإنجليزية', 'AR العربية', 'FR الفرنسية', 'DE الألمانية', 'ES الإسبانية', 'IT الإيطالية', 'RU الروسية'], titles: ['تبديل اللغات', 'نسخ النص', 'تفريغ الحقول'] },
+    fr: { from: 'De:', to: 'Vers:', p: 'Tapez ici...', langs: ['EN Anglais', 'AR Arabe', 'FR Français', 'DE Allemand', 'ES Espagnol', 'IT Italien', 'RU Russe'], titles: ['Échanger les langues', 'Copier le texte', 'Réinitialiser'] },
+    de: { from: 'Von:', to: 'Nach:', p: 'Hier tippen...', langs: ['EN Englisch', 'AR Arabisch', 'FR Französisch', 'DE Deutsch', 'ES Spanisch', 'IT Italienisch', 'RU Russisch'], titles: ['Sprachen tauschen', 'Text kopieren', 'Zurücksetzen'] },
+    es: { from: 'De:', to: 'A:', p: 'Escribe aquí...', langs: ['EN Inglés', 'AR Árabe', 'FR Francés', 'DE Alemán', 'ES Español', 'IT Italiano', 'RU Ruso'], titles: ['Intercambiar idiomas', 'Copiar texto', 'Restablecer'] },
+    it: { from: 'Da:', to: 'A:', p: 'Scrivi qui...', langs: ['EN Inglese', 'AR Arabo', 'FR Francese', 'DE Tedesco', 'ES Spagnolo', 'IT Italiano', 'RU Russo'], titles: ['Scambia lingue', 'Copia testo', 'Ripristina'] },
+    ru: { from: 'Из:', to: 'В:', p: 'Введите текст...', langs: ['EN Английский', 'AR Арабский', 'FR Французский', 'DE Немецкий', 'ES Испанский', 'IT Итальянский', 'RU Русский'], titles: ['Поменять языки', 'Копировать текст', 'Очистить'] }
   };
 
   const tr = t[lang] || t.en;
