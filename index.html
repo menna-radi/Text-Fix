@@ -3,26 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Text Fix</title>
+<meta name="description" content="Text Fix - Professional multi-language keyboard layout converter. Fix mistyped text across 7 international keyboard layouts instantly.">
+<title>Text Fix — Keyboard Layout Converter</title>
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/png" sizes="32x32" href="images/logo-title.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<!-- Animated Background Blobs -->
+<div class="bg-blobs" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
 <div class="container">
 
-  <!-- ---------- Top Bar: Logo + Dark + Language ---------- -->
-  <header class="top-bar">
+  <!-- ========== Header ========== -->
+  <header class="top-bar" id="topBar">
     <div class="top-bar-left">
-      <img src="images/logo.png" alt="Site Logo" class="site-logo">
+      <img src="images/logo.png" alt="Text Fix Logo" class="site-logo">
       <h1 class="site-title">Text<span> Fix</span></h1>
     </div>
 
     <div class="top-controls">
-      <button id="themeToggle">🌙</button>
+      <button id="themeToggle" aria-label="Toggle dark mode" class="icon-btn theme-btn">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
 
-      <label class="site-lang-label">
-        🌐
+      <div class="site-lang-wrapper">
+        <svg class="globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         <select id="siteLang">
           <option value="en">EN English</option>
           <option value="ar">AR العربية</option>
@@ -32,56 +46,100 @@
           <option value="it">IT Italiano</option>
           <option value="ru">RU Русский</option>
         </select>
-      </label>
+      </div>
     </div>
   </header>
 
+  <!-- ========== Main Content ========== -->
   <main class="main-grid">
-    <!-- ---------- Converter Panel ---------- -->
-    <div class="converter-panel">
-      <!-- Controls: From/To + Swap + Copy -->
+
+    <!-- ---- Converter Panel ---- -->
+    <section class="converter-panel" id="converterPanel">
+      <div class="panel-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="panel-icon"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        <h2 id="panelTitle">Converter</h2>
+      </div>
+
+      <!-- Language Selectors -->
       <div class="controls">
-        <label id="fromLabel" for="fromLang">From:</label>
-        <select id="fromLang">
-          <option value="en">EN English</option>
-          <option value="ar" selected disabled>AR Arabic</option>
-          <option value="fr">FR French</option>
-          <option value="de">DE German</option>
-          <option value="es">ES Spanish</option>
-          <option value="it">IT Italian</option>
-          <option value="ru">RU Russian</option>
-        </select>
+        <div class="lang-select-group">
+          <label id="fromLabel" for="fromLang">From:</label>
+          <select id="fromLang">
+            <option value="en">EN English</option>
+            <option value="ar" selected disabled>AR Arabic</option>
+            <option value="fr">FR French</option>
+            <option value="de">DE German</option>
+            <option value="es">ES Spanish</option>
+            <option value="it">IT Italian</option>
+            <option value="ru">RU Russian</option>
+          </select>
+        </div>
 
-        <label id="toLabel" for="toLang">To:</label>
-        <select id="toLang">
-          <option value="en">EN English</option>
-          <option value="ar">AR Arabic</option>
-          <option value="fr">FR French</option>
-          <option value="de">DE German</option>
-          <option value="es">ES Spanish</option>
-          <option value="it">IT Italian</option>
-          <option value="ru">RU Russian</option>
-        </select>
+        <div class="action-buttons">
+          <button id="swapBtn" class="btn-icon" title="Swap Languages" aria-label="Swap Languages">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          </button>
+        </div>
 
-        <button id="swapBtn" class="btn-icon" title="Swap Languages">🔄</button>
-        <button id="copyBtn" class="btn-icon" title="Copy Text">📋</button>
+        <div class="lang-select-group">
+          <label id="toLabel" for="toLang">To:</label>
+          <select id="toLang">
+            <option value="en">EN English</option>
+            <option value="ar">AR Arabic</option>
+            <option value="fr">FR French</option>
+            <option value="de">DE German</option>
+            <option value="es">ES Spanish</option>
+            <option value="it">IT Italian</option>
+            <option value="ru">RU Russian</option>
+          </select>
+        </div>
       </div>
 
-      <!-- Input + Output -->
+      <!-- Text Areas -->
       <div class="text-areas">
-        <textarea id="inputText" placeholder="Type here..." class="form-control" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"></textarea>
-        <div id="output"></div>
+        <div class="text-box-wrapper">
+          <label class="text-box-label" id="inputLabel">Input</label>
+          <textarea id="inputText" placeholder="Type here..." class="form-control" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"></textarea>
+          <span class="char-count" id="charCount">0</span>
+        </div>
+        <div class="text-box-wrapper output-wrapper">
+          <label class="text-box-label" id="outputLabel">Output</label>
+          <div id="output"></div>
+          <div class="output-actions">
+            <button id="copyBtn" class="btn-action" title="Copy Text" aria-label="Copy Text">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="copyLabel">Copy</span>
+            </button>
+            <button id="resetBtn" class="btn-action" title="Reset Fields" aria-label="Reset Fields">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              <span id="resetLabel">Reset</span>
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ---------- Video Panel ---------- -->
-    <div class="video-panel">
-      <video controls>
-        <source src="images/video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
+    <!-- ---- Video Panel ---- -->
+    <aside class="video-panel" id="videoPanel">
+      <div class="panel-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="panel-icon"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        <h2 id="videoTitle">Tutorial</h2>
+      </div>
+      <div class="video-container">
+        <video controls autoplay muted loop>
+          <source src="images/video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </aside>
+
   </main>
+
+  <!-- ========== Footer ========== -->
+  <footer class="footer">
+    <p>© 2026 Text Fix. All rights reserved.</p>
+  </footer>
 
 </div>
 
