@@ -190,13 +190,15 @@ updateCharCount();
 // ---------- Video Auto-Unmute on First Interaction ----------
 const tutorialVideo = document.getElementById('tutorialVideo');
 if (tutorialVideo) {
+  const events = ['click', 'touchstart', 'pointerdown', 'mousedown', 'keydown'];
   const unmuteVideo = () => {
     tutorialVideo.muted = false;
-    document.removeEventListener('click', unmuteVideo);
-    document.removeEventListener('touchstart', unmuteVideo);
-    document.removeEventListener('keydown', unmuteVideo);
+    tutorialVideo.play().catch(() => {});
+    events.forEach(e => document.removeEventListener(e, unmuteVideo));
+    inputText.removeEventListener('focus', unmuteVideo);
+    inputText.removeEventListener('input', unmuteVideo);
   };
-  document.addEventListener('click', unmuteVideo);
-  document.addEventListener('touchstart', unmuteVideo);
-  document.addEventListener('keydown', unmuteVideo);
+  events.forEach(e => document.addEventListener(e, unmuteVideo));
+  inputText.addEventListener('focus', unmuteVideo);
+  inputText.addEventListener('input', unmuteVideo);
 }
