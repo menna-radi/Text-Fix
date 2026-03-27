@@ -680,6 +680,58 @@ video {
   display: block;
 }
 
+/* Google Play Button */
+.google-play-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  color: white;
+  transition: all var(--duration) var(--ease);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+}
+
+.google-play-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl), 0 4px 20px rgba(66, 133, 244, 0.25);
+  border-color: rgba(66, 133, 244, 0.3);
+}
+
+.google-play-btn:active {
+  transform: translateY(0);
+}
+
+.gp-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.gp-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gp-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.3px;
+}
+
+.gp-store {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
 /* ========== FOOTER ========== */
 .footer {
   text-align: center;
