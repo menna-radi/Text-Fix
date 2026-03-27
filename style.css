@@ -71,15 +71,15 @@ h1.site-title {
 }
 #swapBtn, #copyBtn, #resetBtn {
   cursor: pointer;
-  position: relative; /* مهم عشان ::after يكون بالنسبة للزرار */
+  position: relative; 
 }
 
-/* نفس التأثير لكل زرار */
+
 #swapBtn::after,
 #copyBtn::after,#resetBtn::after {
   font-size: 1.2em;
   position: absolute;
-  top: -25px; /* فوق الزرار */
+  top: -25px; 
   left: 50%;
   transform: translateX(-50%);
   background: black;
@@ -87,7 +87,7 @@ h1.site-title {
   padding: 2px 6px;
   border-radius: 4px;
   white-space: nowrap;
-  opacity: 0; /* مخفي في البداية */
+  opacity: 0; 
   pointer-events: none;
   transition: opacity 0.2s;
 }

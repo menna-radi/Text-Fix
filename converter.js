@@ -149,3 +149,11 @@ function convertBetweenLayouts(text, fromLang, toLang){
 
   return result;
 }
+  const textarea = document.querySelector('#myTextarea');
+
+  textarea.addEventListener('input', (e) => {
+    // خليه يشتغل حرف حرف أو كامل النص
+    const original = e.target.value;
+    const converted = convertBetweenLayouts(original, 'ar', 'en'); 
+    e.target.value = converted;
+});
