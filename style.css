@@ -413,8 +413,9 @@ body.dark-mode .video-panel {
 }
 
 .lang-select-group {
-  flex: 1;
-  min-width: 130px;
+  flex: 0 1 auto;
+  min-width: 100px;
+  max-width: 180px;
   display: flex;
   flex-direction: column;
   gap: 6px;
