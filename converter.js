@@ -1,154 +1,116 @@
-// ---------- Keyboard layouts ----------
-const keyboardLayouts = {
-  en: { 
-    'q':'q','w':'w','e':'e','r':'r','t':'t','y':'y','u':'u','i':'i','o':'o','p':'p',
-    'a':'a','s':'s','d':'d','f':'f','g':'g','h':'h','j':'j','k':'k','l':'l',
-    'z':'z','x':'x','c':'c','v':'v','b':'b','n':'n','m':'m',
-    ';':';', ':':':', ',':',', '.':'.', '/':'/', '[':'[', ']':']', "'":"'" 
+// ---------- Exact Keyboard Physical Layout Strings (47 Key Standard) ----------
+// Each string array maps exactly to the physical layout rows (13 + 13 + 11 + 10)
+const layouts = {
+  en: {
+    base:  "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./",
+    shift: "~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?"
   },
-  ar: { 
-    'q':'ض','w':'ص','e':'ث','r':'ق','t':'ف','y':'غ','u':'ع','i':'ه','o':'خ','p':'ح',
-    'a':'ش','s':'س','d':'ي','f':'ب','g':'ل','h':'ا','j':'ت','k':'ن','l':'م',
-    'z':'ئ','x':'ء','c':'ؤ','v':'ر','b':'لا','n':'ى','m':'ة',
-
-    ';':'ك', ':':'ط', ',':'و', '.':'ز', '/':'ظ',
-    ']':'د',
-    '[':'ج',
-    '`':'ذ',
-
-    "'":"'"
+  ar: {
+    // Note: b = لا, T = لإ, G = لأ, B = لآ
+    base:  "ذ1234567890-=ضصثقفغعهخحجد\\شسيبلاتنمكطئءؤرbىةوزظ",
+    shift: "ّ!@#$%^&*)(_+ًٌَُTإ‘÷×؛<>|ٍِ][Gأـ،/:\":~ْ}{Bآ’,.؟"
   },
-  fr: { 
-    // الحروف العادية
-    'q':'a','w':'z','e':'e','r':'r','t':'t','y':'y','u':'u','i':'i','o':'o','p':'p',
-    'a':'q','s':'s','d':'d','f':'f','g':'g','h':'h','j':'j','k':'k','l':'l',
-    'z':'w','x':'x','c':'c','v':'v','b':'b','n':'n','m':'m',
-    // الرموز
-    ';':';', ':':':', ',':',', '.':'.', '/':'/', '[':'[', ']':']', "'":"'",
-    // الحروف الخاصة الفرنسية
-    'é':'e','è':'e','ê':'e','ë':'e',
-    'à':'a','â':'a','ä':'a',
-    'ç':'c','î':'i','ï':'i','ô':'o','ö':'o','ù':'u','û':'u','ü':'u','ÿ':'y'
-    },
-
-    de: {
-    // الحروف العادية
-    'q':'q','w':'w','e':'e','r':'r','t':'t','y':'z','u':'u','i':'i','o':'o','p':'p',
-    'a':'a','s':'s','d':'d','f':'f','g':'g','h':'h','j':'j','k':'k','l':'l',
-    'z':'y','x':'x','c':'c','v':'v','b':'b','n':'n','m':'m',
-    // الرموز
-    ';':'ö', ':':'Ö', ',':'m', '.':'.', '/':'-', '[':'ü', ']':'+', "'":'#',
-    // الحروف الخاصة الألمانية
-    'ä':'a','Ä':'A','ö':'o','Ö':'O','ü':'u','Ü':'U','ß':'ss'
-    },
-    es: {
-    // نفس QWERTY تقريبًا (إسبانيا)
-    'q':'q','w':'w','e':'e','r':'r','t':'t','y':'y','u':'u','i':'i','o':'o','p':'p',
-    'a':'a','s':'s','d':'d','f':'f','g':'g','h':'h','j':'j','k':'k','l':'l','ñ':'ñ',
-    'z':'z','x':'x','c':'c','v':'v','b':'b','n':'n','m':'m',
-
-    // الرموز
-    ';':'ñ', ':':'Ñ', ',':',', '.':'.', '/':'-', '[':'´', ']':'ç',
-
-    // special
-    'á':'a','é':'e','í':'i','ó':'o','ú':'u','ü':'u'
+  fr: {
+    // AZERTY
+    base:  "²&é\"'(-è_çà)=azertyuiop^$*qsdfghjklmùwxcvbn,;:=!",
+    shift: "²1234567890°+AZERTYUIOP¨£µQSDFGHJKLM%WXCVBN?./§"
   },
-
+  de: {
+    // QWERTZ
+    base:  "^1234567890ß´qwertzuiopü+#asdfghjklöäyxcvbnm,.-",
+    shift: "°!\"§$%&/()=?`QWERTZUIOPÜ*'ASDFGHJKLÖÄYXCVBNM;:_"
+  },
   it: {
-    // QWERTY مع رموز مختلفة
-    'q':'q','w':'w','e':'e','r':'r','t':'t','y':'y','u':'u','i':'i','o':'o','p':'p',
-    'a':'a','s':'s','d':'d','f':'f','g':'g','h':'h','j':'j','k':'k','l':'l',
-    'z':'z','x':'x','c':'c','v':'v','b':'b','n':'n','m':'m',
-
-    // الرموز
-    ';':'ò', ':':'ç', ',':',', '.':'.', '/':'-',
-
-    // special
-    'à':'a','è':'e','é':'e','ì':'i','ò':'o','ù':'u'
+    // QWERTY (Italian)
+    base:  "\\1234567890'ìqwertyuiopè+ùasdfghjklòàzxcvbnm,.-",
+    shift: "|!\"£$%&/()=?^QWERTYUIOPé*§ASDFGHJKLç°ZXCVBNM;:_"
   },
-
+  es: {
+    // QWERTY (Spanish)
+    base:  "º1234567890'¡qwertyuiop`+çasdfghjklñ´zxcvbnm,.-",
+    shift: "ª!\"·$%&/()=?¿QWERTYUIOP^*ÇASDFGHJKLÑ¨ZXCVBNM;:_"
+  },
   ru: {
-    // Russian ЙЦУКЕН
-    'q':'й','w':'ц','e':'у','r':'к','t':'е','y':'н','u':'г','i':'ш','o':'щ','p':'з',
-    'a':'ф','s':'ы','d':'в','f':'а','g':'п','h':'р','j':'о','k':'л','l':'д',
-    'z':'я','x':'ч','c':'с','v':'м','b':'и','n':'т','m':'ь',
-
-    // رموز
-    ';':'ж', ':':'Ж', ',':'б', '.':'ю', '/':'.',
-
-    // special
-    'ё':'е'
+    // ЙЦУКЕН (Russian)
+    base:  "ё1234567890-=йцукенгшщзхъ\\фывапролджэячсмитьбю.",
+    shift: "Ё!\"№;%:?*()_+ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,"
   }
 };
 
-// ---------- Arabic composite handling ----------
-
-// ---------- Conversion ----------
-// ---------- preprocess & postprocess ----------
-// ---------- preprocess & postprocess ----------
-function preprocessArabic(text){ 
-  return text
-    .replace(/لا/g, 'b')   
-    .replace(/ج/g, '[')    
-    .replace(/ذ/g, '`')    
-    .replace(/أ/g, 'h');   
-}
-
-function postprocessArabic(text){ 
-  return text
-    .replace(/b/g, 'لا')
-    .replace(/\[/g, 'ج')
-    .replace(/`/g, 'ذ')
-    .replace(/h/g, 'أ');
-}
-
-// Special Arabic character mapping
-const specialMapArToEn = {
-  'ج': '[',  
-  'ذ': '`',  
-  'أ': 'h',  
-  'لا': 'b' 
+// ---------- Pre/Post Process for Arabic Ligatures ----------
+const arLigaturesToSymbols = {
+  'لإ': 'T',
+  'لأ': 'G',
+  'لآ': 'B',
+  'لا': 'b'
 };
-function convertBetweenLayouts(text, fromLang, toLang){
-  if(fromLang === 'ar') text = preprocessArabic(text);
 
-  const fromLayout = keyboardLayouts[fromLang];
-  const toLayout = keyboardLayouts[toLang];
+const arSymbolsToLigatures = {
+  'T': 'لإ',
+  'G': 'لأ',
+  'B': 'لآ',
+  'b': 'لا'
+};
+
+function preprocessArabic(text) {
+  let res = text;
+  for (let lig in arLigaturesToSymbols) {
+    // Global replacement for ligatures to a single map character
+    res = res.replace(new RegExp(lig, 'g'), arLigaturesToSymbols[lig]);
+  }
+  return res;
+}
+
+function postprocessArabic(text) {
+  let res = text;
+  for (let sym in arSymbolsToLigatures) {
+    res = res.replace(new RegExp(sym, 'g'), arSymbolsToLigatures[sym]);
+  }
+  return res;
+}
+
+
+// ---------- Main Conversion Logic ----------
+function convertBetweenLayouts(text, fromLang, toLang) {
+  if (!text) return "";
+
+  if (fromLang === 'ar') text = preprocessArabic(text);
+
+  const fromLayout = layouts[fromLang] || layouts['en'];
+  const toLayout = layouts[toLang] || layouts['en'];
 
   let result = '';
 
-  for(let i = 0; i < text.length; i++){
+  for (let i = 0; i < text.length; i++) {
     let char = text[i];
+    let isShifted = false;
+    let foundIndex = -1;
 
-    // 🔹 Special Arabic chars
-    if(fromLang === 'ar' && specialMapArToEn[char]){
-      let converted = specialMapArToEn[char]; 
-      // لو عايزين نحول كمان حسب toLayout
-      if(toLayout[converted]) converted = toLayout[converted];
+    // Search inside the base (unshifted) string
+    foundIndex = fromLayout.base.indexOf(char);
+    
+    // If not found, search inside the shift (shifted/uppercase) string
+    if (foundIndex === -1) {
+      foundIndex = fromLayout.shift.indexOf(char);
+      if (foundIndex !== -1) {
+        isShifted = true;
+      }
+    }
+
+    // If character exists in our physical keys map
+    if (foundIndex !== -1) {
+      let converted = isShifted ? toLayout.shift[foundIndex] : toLayout.base[foundIndex];
       result += converted;
-      continue;
-    }
-
-    let isUpper = char.length === 1 && char !== char.toLowerCase();
-    let lowerChar = char.toLowerCase();
-
-    let key = Object.keys(fromLayout).find(k => fromLayout[k] === lowerChar);
-
-    if(!key){
+    } else {
+      // Unmapped characters (spaces, newlines, emojis) are left untouched
       result += char;
-      continue;
     }
-
-    let converted = toLayout[key] || lowerChar;
-    
-    if(isUpper && toLang !== 'ar' && typeof converted.toUpperCase === 'function'){
-      converted = converted.toUpperCase();
-    }
-    
-    result += converted;
   }
 
-  if(toLang === 'ar') result = postprocessArabic(result);
+  // Restore the dynamic Arabic ligatures if target is Arabic
+  if (toLang === 'ar') {
+    result = postprocessArabic(result);
+  }
 
   return result;
 }

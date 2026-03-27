@@ -294,27 +294,83 @@ body.rtl .controls label {
   margin-left: -4px;
 }
 
-/* ---------- Mobile Adjustments ---------- */
+/* ---------- Responsive Breakpoints & Adjustments ---------- */
+
+/* Large screens / Desktops */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+  .main-grid {
+    gap: 32px;
+  }
+}
+
+/* Tablets and below */
+@media (max-width: 900px) {
+  .top-bar {
+    padding: 16px;
+  }
+  h1.site-title {
+    font-size: 22px;
+  }
+  .converter-panel, .video-panel {
+    padding: 16px;
+  }
+}
+
+/* Mobile Devices */
 @media (max-width: 600px) {
   body {
-    padding: 12px;
+    padding: 12px 8px;
   }
   .top-bar {
     flex-direction: column;
     align-items: stretch;
-    padding: 16px;
   }
   .top-bar-left {
     justify-content: space-between;
+    margin-bottom: 15px;
   }
   .top-controls {
     justify-content: space-between;
-    margin-top: 10px;
+    width: 100%;
   }
   .controls {
-    justify-content: center;
+    gap: 8px;
+  }
+  .controls label {
+    display: none; /* Hide labels to save space */
+  }
+  .controls select {
+    flex: 1 1 40%; /* Allow selects to grow equally */
+    padding: 8px 30px 8px 12px;
+    font-size: 0.9em;
+  }
+  body.rtl select {
+    padding: 8px 12px 8px 30px;
+  }
+  .btn-icon {
+    width: 38px;
+    height: 38px;
   }
   .site-logo {
     height: 40px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 400px) {
+  .controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .controls select {
+    flex: 1 1 100%;
+  }
+  .controls .btn-icon {
+    flex: 1 1 auto;
+    max-width: 80px;
   }
 }
