@@ -76,13 +76,12 @@ h1.site-title {
   font-size: 24px;
   font-weight: 800;
   margin: 0;
-  background: linear-gradient(135deg, var(--accent-color), #8b5cf6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #018bf0;
   letter-spacing: -0.5px;
 }
-
+h1.site-title span {
+  color: #fc6e01;
+}
 .top-controls {
   display: flex;
   align-items: center;
@@ -154,7 +153,7 @@ body.dark-mode select {
 
 @media (min-width: 900px) {
   .main-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
   }
 }
 
