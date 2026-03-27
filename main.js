@@ -191,118 +191,79 @@ updateCharCount();
 const tutorialVideo = document.getElementById('tutorialVideo');
 if (tutorialVideo) {
   const videoContainer = tutorialVideo.closest('.video-container');
-  let isPlaying = false;
   let hasUnmuted = false;
 
-  // --- Create play overlay button for mobile fallback ---
+  // --- Play overlay (fallback if autoplay is blocked) ---
   const playOverlay = document.createElement('button');
-  playOverlay.className = 'video-play-overlay';
   playOverlay.setAttribute('aria-label', 'Play video');
   playOverlay.innerHTML = `<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" fill="rgba(0,0,0,0.5)" stroke="white" stroke-width="2"/><polygon points="26,20 26,44 46,32" fill="white"/></svg>`;
-  playOverlay.style.cssText = `
-    display: none;
-    position: absolute;
-    inset: 0;
-    z-index: 10;
-    cursor: pointer;
-    background: rgba(0,0,0,0.3);
-    border: none;
-    padding: 0;
-    align-items: center;
-    justify-content: center;
-  `;
-  playOverlay.querySelector('svg').style.cssText = 'width: 64px; height: 64px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); transition: transform 0.2s ease;';
+  playOverlay.style.cssText = 'display:none;position:absolute;inset:0;z-index:10;cursor:pointer;background:rgba(0,0,0,0.3);border:none;padding:0;align-items:center;justify-content:center;';
+  playOverlay.querySelector('svg').style.cssText = 'width:64px;height:64px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4));';
   if (videoContainer) {
     videoContainer.style.position = 'relative';
     videoContainer.appendChild(playOverlay);
   }
 
-  // Show overlay when autoplay fails
-  function showPlayOverlay() {
-    playOverlay.style.display = 'flex';
-  }
-
-  // Hide overlay when video starts
-  function hidePlayOverlay() {
-    playOverlay.style.display = 'none';
-  }
-
-  // --- Attempt 1: Try muted autoplay immediately ---
-  function tryAutoplay() {
-    tutorialVideo.muted = true;
-    const p = tutorialVideo.play();
-    if (p) {
-      p.then(() => {
-        isPlaying = true;
-        hidePlayOverlay();
-      }).catch(() => {
-        // Autoplay completely blocked — show play button
-        isPlaying = false;
-        showPlayOverlay();
+  // --- Let the browser handle autoplay via HTML attributes ---
+  // Only check AFTER video has had time to load & start
+  function checkAutoplay() {
+    if (tutorialVideo.paused) {
+      // Autoplay didn't work — try ONE JS play() attempt
+      tutorialVideo.muted = true;
+      const p = tutorialVideo.play();
+      if (p) p.catch(() => {
+        // JS play also failed — show play button
+        playOverlay.style.display = 'flex';
       });
     }
   }
-  tryAutoplay();
 
-  // --- Attempt 2: Retry when video scrolls into view (IntersectionObserver) ---
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !isPlaying) {
-          tryAutoplay();
-        }
-      });
-    }, { threshold: 0.5 });
-    observer.observe(tutorialVideo);
+  // Check after video is ready
+  if (tutorialVideo.readyState >= 3) {
+    // Already loaded — check now
+    setTimeout(checkAutoplay, 200);
+  } else {
+    tutorialVideo.addEventListener('canplay', () => setTimeout(checkAutoplay, 200), { once: true });
   }
 
-  // --- Play overlay click handler (direct user gesture) ---
-  playOverlay.addEventListener('click', (e) => {
-    e.stopPropagation();
-    tutorialVideo.muted = false;
+  // Safety net: if still not playing after 4 seconds
+  setTimeout(() => {
+    if (tutorialVideo.paused) {
+      playOverlay.style.display = 'flex';
+    }
+  }, 4000);
+
+  // --- Play overlay click ---
+  playOverlay.addEventListener('click', () => {
+    tutorialVideo.muted = true;
     tutorialVideo.play().then(() => {
-      isPlaying = true;
-      hasUnmuted = true;
-      hidePlayOverlay();
-    }).catch(() => {
-      // Last resort: play muted
-      tutorialVideo.muted = true;
-      tutorialVideo.play().then(() => {
-        isPlaying = true;
-        hidePlayOverlay();
-      }).catch(() => {});
-    });
+      playOverlay.style.display = 'none';
+    }).catch(() => {});
   });
 
-  // --- Unmute on first user interaction ---
-  const gestureEvents = ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown'];
+  // --- Hide overlay when video starts ---
+  tutorialVideo.addEventListener('playing', () => {
+    playOverlay.style.display = 'none';
+  });
 
+  // --- Unmute on first user gesture ---
   const unmuteOnGesture = () => {
     if (hasUnmuted) return;
     hasUnmuted = true;
-
-    // If not playing yet, start playing first
-    if (!isPlaying) {
-      tutorialVideo.muted = false;
-      tutorialVideo.play().then(() => {
-        isPlaying = true;
-        hidePlayOverlay();
-      }).catch(() => {
-        // Try muted
+    tutorialVideo.muted = false;
+    // If paused, also try to start it
+    if (tutorialVideo.paused) {
+      tutorialVideo.play().catch(() => {
+        // Can't play unmuted — play muted instead
         tutorialVideo.muted = true;
-        tutorialVideo.play().then(() => {
-          isPlaying = true;
-          hidePlayOverlay();
-        }).catch(() => {});
+        tutorialVideo.play().catch(() => {});
       });
-    } else {
-      // Already playing, just unmute
-      tutorialVideo.muted = false;
     }
-
-    // Clean up
-    gestureEvents.forEach(e => document.removeEventListener(e, unmuteOnGesture, { capture: true }));
+    ['click','touchstart','touchend','pointerdown','keydown'].forEach(e =>
+      document.removeEventListener(e, unmuteOnGesture, { capture: true })
+    );
   };
-
-  gestureEvents.forEach(e => document.addEventListener(e, unmuteOnGesture, { capture: true }));
+  ['click','touchstart','touchend','pointerdown','keydown'].forEach(e =>
+    document.addEventListener(e, unmuteOnGesture, { capture: true })
+  );
 }
