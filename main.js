@@ -37,8 +37,8 @@ themeToggle.addEventListener('click', () => {
 // ---------- Copy ----------
 copyBtn.addEventListener('click', () => {
   navigator.clipboard.writeText(outputDiv.innerText)
-    .then(()=>alert('Copied!'))
-    .catch(()=>alert('Error'));
+    .then(() => alert('Copied!'))
+    .catch(() => alert('Error'));
 });
 
 // ---------- Swap ----------
@@ -63,7 +63,7 @@ fromLangSelect.addEventListener('change', updateOutput);
 toLangSelect.addEventListener('change', updateOutput);
 
 // ---------- Output ----------
-function updateOutput(){
+function updateOutput() {
   outputDiv.innerText = convertBetweenLayouts(
     inputText.value,
     fromLangSelect.value,
@@ -72,10 +72,15 @@ function updateOutput(){
 }
 
 // ---------- Translation ----------
-function updateLanguageUI(lang){
+function updateLanguageUI(lang) {
   const t = {
-    en:{from:'From:',to:'To:',p:'Type here...'},
-    ar:{from:'من:',to:'إلى:',p:'اكتب هنا...'}
+    en: { from: 'From:', to: 'To:', p: 'Type here...' },
+    ar: { from: 'من:', to: 'إلى:', p: 'اكتب هنا...' },
+    fr: { from: 'De:', to: 'Vers:', p: 'Tapez ici...' },
+    de: { from: 'Von:', to: 'Nach:', p: 'Hier tippen...' },
+    es: { from: 'De:', to: 'A:', p: 'Escribe aquí...' },
+    it: { from: 'Da:', to: 'A:', p: 'Scrivi qui...' },
+    ru: { from: 'С:', to: 'На:', p: 'Введите текст...' }
   };
 
   const tr = t[lang] || t.en;
