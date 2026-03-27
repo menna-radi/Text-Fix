@@ -186,3 +186,19 @@ function updateLanguageUI(lang) {
 updateLanguageUI(siteLangSelect.value);
 updateOutput();
 updateCharCount();
+
+// ---------- Video Auto-Unmute on First Interaction ----------
+const tutorialVideo = document.getElementById('tutorialVideo');
+if (tutorialVideo) {
+  const events = ['click', 'touchstart', 'pointerdown', 'mousedown', 'keydown'];
+  const unmuteVideo = () => {
+    tutorialVideo.muted = false;
+    tutorialVideo.play().catch(() => {});
+    events.forEach(e => document.removeEventListener(e, unmuteVideo));
+    inputText.removeEventListener('focus', unmuteVideo);
+    inputText.removeEventListener('input', unmuteVideo);
+  };
+  events.forEach(e => document.addEventListener(e, unmuteVideo));
+  inputText.addEventListener('focus', unmuteVideo);
+  inputText.addEventListener('input', unmuteVideo);
+}
